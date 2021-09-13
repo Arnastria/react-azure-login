@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 import { loginUser, logoutUser } from '../redux/actions/auth';
 import { Rootstate } from '../redux/reducers';
 import { Grid, Paper, TextField, Button, Box } from '@material-ui/core';
@@ -14,12 +14,7 @@ import { callMsGraph } from '../utils/MsGraphApiCall';
 const useStyles = makeStyles((theme) => ({
     root: {
         height: '100vh',
-        backgroundImage: 'url(https://www.poinin.com/assets/img/prize_for_you.png)',
-        backgroundRepeat: 'no-repeat',
-        backgroundColor:
-            theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
-
-        backgroundPosition: 'left bottom',
+        background: 'linear-gradient(90deg, rgba(255,161,147,1) 0%, rgba(255,210,170,1) 100%)',
     },
     wrapperPapper: {
         marginRight: '10%',
@@ -44,13 +39,15 @@ const useStyles = makeStyles((theme) => ({
 
 export default function LoginAzurePage() {
     const classes = useStyles();
-    const selector = useSelector((state: Rootstate) => state.auth);
     const isAuthenticated = useIsAuthenticated();
     const instance = useMsal();
     const dispatch = useDispatch();
-    const Check = () => {
-        console.log(selector)
+    const useQuery = () => {
+        return new URLSearchParams(useLocation().search);
     }
+    const query = useQuery();
+    console.log(query.get("redirect"))
+
     useEffect(() => {
         if (isAuthenticated) {
             const payload = callMsGraph();

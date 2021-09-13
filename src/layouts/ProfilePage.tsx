@@ -14,9 +14,7 @@ import { callMsGraph } from '../utils/MsGraphApiCall';
 const useStyles = makeStyles((theme) => ({
     root: {
         height: '100vh',
-        backgroundColor:
-            theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
-
+        background: 'linear-gradient(90deg, rgba(255,161,147,1) 0%, rgba(255,210,170,1) 100%)',
     },
     wrapperPapper: {
         marginRight: '10%',
