@@ -1,7 +1,9 @@
 import { IPublicClientApplication } from "@azure/msal-browser";
 import { MsalProvider } from "@azure/msal-react";
-import { useHistory } from "react-router";
-import { RouteSelector } from "./routes";
+import { Route, useHistory } from "react-router";
+import { BrowserRouter } from "react-router-dom";
+import Pages from "./routes";
+// import { RouteSelector } from "./routes";
 import { CustomNavigationClient } from "./utils/NavigationClient";
 
 type AppProps = {
@@ -15,7 +17,9 @@ function App({ pca }: AppProps) {
 
   return (
     <MsalProvider instance={pca}>
-      <RouteSelector />
+      <BrowserRouter>
+        <Pages />
+      </BrowserRouter>
     </MsalProvider>
   );
 }

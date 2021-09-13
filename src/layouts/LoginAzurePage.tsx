@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { loginUser, logoutUser } from '../redux/actions/auth';
 import { Rootstate } from '../redux/reducers';
-import { Grid, Paper, TextField, Button } from '@material-ui/core';
+import { Grid, Paper, TextField, Button, Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { SignInButton } from '../components/SignInButton';
 import { useIsAuthenticated, useMsal } from "@azure/msal-react";
 import { SignOutButton } from '../components/SignOutButton';
+import { callMsGraph } from '../utils/MsGraphApiCall';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -43,17 +44,23 @@ const useStyles = makeStyles((theme) => ({
 
 export default function LoginAzurePage() {
     const classes = useStyles();
-    const [isError, setIsError] = useState(false);
-    const dispatch = useDispatch();
-    const history = useHistory();
     const selector = useSelector((state: Rootstate) => state.auth);
     const isAuthenticated = useIsAuthenticated();
     const instance = useMsal();
-
+    const dispatch = useDispatch();
     const Check = () => {
         console.log(selector)
-
     }
+    useEffect(() => {
+        if (isAuthenticated) {
+            const payload = callMsGraph();
+            payload.then((value) => {
+                console.log(value.dataMSGraph);
+                loginUser(value.token, value.dataMSGraph, dispatch);
+            })
+        }
+
+    }, [isAuthenticated]);
 
 
     return (
@@ -61,8 +68,9 @@ export default function LoginAzurePage() {
             <Grid item className={classes.wrapperPapper} xs={12} sm={12} md={3} component={Paper} elevation={6} square >
                 <div className={classes.paper}>
                     <h2>Welcome !</h2>
-                    {isAuthenticated ? "authenticated" : <></>}
-                    {isAuthenticated ? <SignOutButton /> : <SignInButton />}
+                    <Box style={{ margin: '12px 0px' }}>
+                        {isAuthenticated ? <SignOutButton /> : <SignInButton />}
+                    </Box>
                 </div>
             </Grid>
         </Grid>

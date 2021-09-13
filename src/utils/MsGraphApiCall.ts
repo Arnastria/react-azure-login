@@ -22,7 +22,12 @@ export async function callMsGraph() {
         headers: headers
     };
 
-    return fetch(graphConfig.graphMeEndpoint, options)
+    const dataMSGraph = await fetch(graphConfig.graphMeEndpoint, options)
         .then(response => response.json())
         .catch(error => console.log(error));
+
+    return ({
+        token: response.accessToken,
+        dataMSGraph: dataMSGraph
+    })
 }
