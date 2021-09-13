@@ -26,14 +26,27 @@ import { Rootstate } from "../redux/reducers";
 //     }
 //     return (<LoginAzurePage />);
 // }
-function LoggedInRouteX(props: any) {
+function LoggedInRoute(props: any) {
     const { children, path } = props;
     const isAuthenticated = useIsAuthenticated();
     const history = useHistory();
     const selector = useSelector((state: Rootstate) => state.auth);
-    if (selector.tokens === null || !isAuthenticated) {
-        history.push('/login')
+    if (selector.tokens === null) {
+        // history.push('/login')
+        console.log("redirrect ke login")
+        return (
+            <Route
+                render={(props) => (
+                    <Redirect
+                        to={{
+                            pathname: "/login",
+                        }}
+                    />
+                )}
+            />
+        );
     }
+    console.log("Masuk ke logged in")
     return (
         <>
             <Route render={() => (
@@ -46,14 +59,29 @@ function LoggedInRouteX(props: any) {
     );
 }
 
-function LoggedOutRouteX(props: any) {
+function LoggedOutRoute(props: any) {
     const { children, path } = props;
     const isAuthenticated = useIsAuthenticated();
     const history = useHistory();
-    const selector = useSelector((state: Rootstate) => state.auth);
-    if (selector.tokens !== null && isAuthenticated) {
-        history.push('/')
+    const selectorAuth = useSelector((state: Rootstate) => state.auth);
+    const selectorRedirect = useSelector((state: Rootstate) => state.redirectUrl);
+
+    if (selectorAuth.tokens !== null) {
+        // history.push(selectorRedirect.url)
+        console.log("redirrect logged out")
+        return (
+            <Route
+                render={(props) => (
+                    <Redirect
+                        to={{
+                            pathname: selectorRedirect.url,
+                        }}
+                    />
+                )}
+            />
+        );
     }
+    console.log("Masuk ke logged out")
     return (
         <>
             <Route render={() => (
@@ -70,15 +98,15 @@ function LoggedOutRouteX(props: any) {
 export default function Pages() {
     return (
         <Switch>
-            <LoggedOutRouteX path="/login">
+            <LoggedOutRoute path="/login">
                 <LoginAzurePage />
-            </LoggedOutRouteX>
-            <LoggedInRouteX path="/profile">
+            </LoggedOutRoute>
+            <LoggedInRoute path="/profile">
                 <ProfilePage />
-            </LoggedInRouteX>
-            <LoggedInRouteX path="/">
+            </LoggedInRoute>
+            <LoggedInRoute path="/">
                 <DefaultPage />
-            </LoggedInRouteX>
+            </LoggedInRoute>
         </Switch>
     );
 }
