@@ -4,7 +4,11 @@ import { loginRequest } from "../authConfig";
 import { Button } from "@material-ui/core";
 
 async function handleLogin(instance: any) {
-    instance.loginRedirect(loginRequest).catch((e: any) => {
+    const loginRequestConfig = {
+        ...loginRequest,
+        loginHint: 'arnastria@gmail.com',
+    }
+    instance.loginRedirect(loginRequestConfig).catch((e: any) => {
         console.error(e);
     });
 }

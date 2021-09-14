@@ -6,9 +6,10 @@ import { useDispatch } from "react-redux";
 
 function handleLogout(instance: any, dispatch: any) {
     logoutUser(dispatch);
-    instance.logoutRedirect().catch((e: any) => {
-        console.error(e);
-    });
+    sessionStorage.clear();
+    // instance.logoutRedirect().catch((e: any) => {
+    //     console.error(e);
+    // });
 }
 
 /**
@@ -18,6 +19,6 @@ export const SignOutButton = () => {
     const { instance } = useMsal();
     const dispatch = useDispatch();
     return (
-        <Button color="secondary" variant="outlined" className="ml-auto" onClick={() => handleLogout(instance, dispatch)}>Sign out using Redirect</Button>
+        <Button color="secondary" variant="outlined" className="ml-auto" onClick={() => handleLogout(instance, dispatch)}>Sign out</Button>
     );
 }
