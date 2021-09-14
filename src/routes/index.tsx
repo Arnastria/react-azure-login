@@ -4,6 +4,7 @@ import { BrowserRouter, Redirect, Route, Switch, useHistory } from "react-router
 import DefaultPage from "../layouts/DefaultPage";
 import LoginAzurePage from "../layouts/LoginAzurePage";
 import ProfilePage from "../layouts/ProfilePage";
+import { PromoPageDiv } from "../layouts/PromoPageDiv";
 import { Rootstate } from "../redux/reducers";
 
 // export function RouteSelector(props: any) {
@@ -101,6 +102,9 @@ export default function Pages() {
             <LoggedOutRoute path="/login">
                 <LoginAzurePage />
             </LoggedOutRoute>
+            <LoggedInRoute path="/promo">
+                <PromoPageDiv />
+            </LoggedInRoute>
             <LoggedInRoute path="/profile">
                 <ProfilePage />
             </LoggedInRoute>

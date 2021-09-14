@@ -52,8 +52,11 @@ export default function DefaultPage() {
             <Grid item className={classes.wrapperPapper} xs={12} sm={12} md={3} component={Paper} elevation={6} square >
                 <div className={classes.paper}>
                     <h2>Default Page</h2>
-                    <Box style={{ margin: '12px 0px' }}>
-                        <Button variant="outlined" color="primary" onClick={() => { changePage("/profile") }}>Profile</Button>
+                    <Box style={{ margin: '12px 0px', width: '100%' }}>
+                        <Button variant="outlined" color="primary" style={{ width: '100%' }} onClick={() => { changePage("/profile") }}>Profile Page</Button>
+                    </Box>
+                    <Box style={{ margin: '12px 0px', width: '100%' }}>
+                        <Button variant="outlined" color="primary" style={{ width: '100%' }} onClick={() => { changePage("/promo") }}>Promo Page</Button>
                     </Box>
                     <Box style={{ margin: '12px 0px' }}>
                         {isAuthenticated ? <SignOutButton /> : <></>}

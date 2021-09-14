@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router';
-import { loginUser, logoutUser } from '../redux/actions/auth';
+import { loginUser, logoutUser, setRedirectUrl } from '../redux/actions/auth';
 import { Rootstate } from '../redux/reducers';
 import { Grid, Paper, TextField, Button, Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -45,15 +45,17 @@ export default function LoginAzurePage() {
     const useQuery = () => {
         return new URLSearchParams(useLocation().search);
     }
-    const query = useQuery();
-    console.log(query.get("redirect"))
+
 
     useEffect(() => {
         if (isAuthenticated) {
             const payload = callMsGraph();
             payload.then((value) => {
-                console.log(value.dataMSGraph);
                 loginUser(value.token, value.dataMSGraph, dispatch);
+            }).catch((error) => {
+                logoutUser(dispatch)
+                console.log(error)
+                window.location.reload();
             })
         }
 
