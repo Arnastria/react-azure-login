@@ -58,7 +58,7 @@ export default function DefaultPage() {
                     <Box style={{ margin: '12px 0px', width: '100%' }}>
                         <Button variant="outlined" color="primary" style={{ width: '100%' }} onClick={() => { changePage("/promo") }}>Promo Page</Button>
                     </Box>
-                    <Box style={{ margin: '12px 0px' }}>
+                    <Box style={{ margin: '12px 0px', width: '100%' }}>
                         {isAuthenticated ? <SignOutButton /> : <></>}
                     </Box>
                 </div>

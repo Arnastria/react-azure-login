@@ -19,6 +19,6 @@ export const SignOutButton = () => {
     const { instance } = useMsal();
     const dispatch = useDispatch();
     return (
-        <Button color="secondary" variant="outlined" className="ml-auto" onClick={() => handleLogout(instance, dispatch)}>Sign out</Button>
+        <Button color="secondary" style={{ width: '100%' }} variant="contained" className="ml-auto" onClick={() => handleLogout(instance, dispatch)}>Sign out</Button>
     );
 }

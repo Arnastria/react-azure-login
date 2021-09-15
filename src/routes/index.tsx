@@ -1,10 +1,11 @@
 import { useIsAuthenticated } from "@azure/msal-react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter, Redirect, Route, Switch, useHistory } from "react-router-dom";
 import DefaultPage from "../layouts/DefaultPage";
 import LoginAzurePage from "../layouts/LoginAzurePage";
 import ProfilePage from "../layouts/ProfilePage";
 import { PromoPageDiv } from "../layouts/PromoPageDiv";
+import { resetRedirectUrl } from "../redux/actions/auth";
 import { Rootstate } from "../redux/reducers";
 
 // export function RouteSelector(props: any) {
@@ -29,10 +30,13 @@ import { Rootstate } from "../redux/reducers";
 // }
 function LoggedInRoute(props: any) {
     const { children, path } = props;
-    const isAuthenticated = useIsAuthenticated();
-    const history = useHistory();
-    const selector = useSelector((state: Rootstate) => state.auth);
-    if (selector.tokens === null) {
+    const dispatch = useDispatch();
+    const selectorAuth = useSelector((state: Rootstate) => state.auth);
+    const selectorRedirect = useSelector((state: Rootstate) => state.redirectUrl);
+    if (selectorRedirect.url) {
+        resetRedirectUrl(dispatch);
+    }
+    if (selectorAuth.tokens === null) {
         // history.push('/login')
         console.log("redirrect ke login")
         return (
@@ -66,16 +70,17 @@ function LoggedOutRoute(props: any) {
     const history = useHistory();
     const selectorAuth = useSelector((state: Rootstate) => state.auth);
     const selectorRedirect = useSelector((state: Rootstate) => state.redirectUrl);
-
+    console.log(selectorRedirect.url)
     if (selectorAuth.tokens !== null) {
         // history.push(selectorRedirect.url)
         console.log("redirrect logged out")
+        const redirectString = selectorRedirect.url;
         return (
             <Route
                 render={(props) => (
                     <Redirect
                         to={{
-                            pathname: selectorRedirect.url,
+                            pathname: redirectString,
                         }}
                     />
                 )}

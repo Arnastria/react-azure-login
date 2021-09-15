@@ -3,6 +3,7 @@ export const msalConfig = {
         clientId: "7c228421-f4ea-4c54-88a0-021700c64b2d",
         authority: "https://login.microsoftonline.com/arnastriagmail.onmicrosoft.com",
         redirectUri: "http://localhost:3000/login",
+        navigateToLoginRequestUrl: true
     },
     cache: {
         cacheLocation: "sessionStorage", // This configures where your cache will be stored

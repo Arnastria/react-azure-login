@@ -213,6 +213,32 @@ const useFixedStyles = makeStyles({
         marginLeft: 'auto',
         marginRight: 'auto',
     },
+    promoThumbnailShowCardWrapper: {
+        zIndex: 2,
+        display: 'flex',
+        flexDirection: 'column-reverse',
+        height: '60%',
+        width: '100%',
+        justifyContent: 'flex-start',
+        position: 'absolute',
+    },
+    promoThumbnailShowcard: {
+        display: 'flex',
+        marginTop: '81%',
+        width: '100%',
+        height: '21%',
+        textAlign: 'center',
+        backgroundColor: 'hsla(0,0%,92.5%,.9)',
+        borderBottomLeftRadius: '10px',
+        borderBottomRightRadius: '10px',
+    },
+    promoThumbnailShowcardImg: {
+        height: '40%',
+        marginTop: '8px',
+        objectFit: 'scale-down',
+        objectPosition: 'right',
+        marginLeft: '10px',
+    },
     promoThumbnailDate: {
         display: ' flex',
         marginTop: '2px',
@@ -254,6 +280,15 @@ const PromocardFixed = (props: any) => {
 
                             <div className={classes.promoThumbnailImgArea}>
                                 <img className={classes.promoThumbnailImage} src={promoData.Background} />
+                                {promoData.CardLogo ?
+                                    <div className={classes.promoThumbnailShowCardWrapper}>
+                                        <div className={classes.promoThumbnailShowcard}>
+                                            <img className={classes.promoThumbnailShowcardImg} src={promoData.CardLogo} />
+                                        </div>
+                                    </div>
+                                    :
+                                    <></>
+                                }
                             </div>
                         </div>
                     </a>

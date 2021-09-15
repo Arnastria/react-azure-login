@@ -55,7 +55,7 @@ function PromoPageDiv() {
         }
         setTimeout(() => {
             console.log("getting more data.. [" + start + "]")
-            const tmpArr = dummyPromoData.slice(start, start + 8)
+            const tmpArr = dummyPromoData.slice(start, start + 9)
             setPromoItem((currentItems) => currentItems.concat(tmpArr));
         }, 1000);
     }
@@ -105,13 +105,13 @@ function PromoPageDiv() {
                     </div>
                 </Grid>
             </Grid>
-            <Grid container justifyContent="center" alignItems="center" spacing={2} style={{ backgroundColor: 'rgb(247, 247, 247)' }}>
+            <Grid container justifyContent="center" alignItems="flex-start" spacing={2} style={{ backgroundColor: 'rgb(247, 247, 247)', minHeight: '100vh' }}>
                 <Grid item>
                     <div>
                         {isLoading ?
                             <div className={classes.gridContainerLoaderPromoNoPadding}>
                                 <>
-                                    {[0, 0, 0, 0].map((i, index) => {
+                                    {[0, 0, 0, 0, 0, 0].map((i, index) => {
                                         return (
                                             <div style={{ margin: 10 }} key={index}>
                                                 <CardRowLoading />
@@ -128,7 +128,7 @@ function PromoPageDiv() {
                                 hasMore={hasMore}
                                 loader={
                                     <>
-                                        {[0, 0, 0, 0].map((i, index) => {
+                                        {[0, 0, 0, 0, 0, 0].map((i, index) => {
                                             return (
                                                 <div style={{ margin: 10 }} key={index}>
                                                     <CardRowLoading />
