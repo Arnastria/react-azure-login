@@ -6,6 +6,7 @@ import PoininAppBar from '../components/Appbar';
 import { Promocard, PromocardFixed, PromocardLoading } from '../components/Promocard';
 import { DummyPromoDataLong } from '../data/DummyList';
 import { PromoData } from '../data/PromoData';
+import DialogSessionExpired from '../components/DialogSessionExpired';
 
 const useStyles = makeStyles({
     borderAppBar: {
@@ -29,7 +30,8 @@ function CardRowLoading() {
         </div>);
 }
 
-function PromoPageDiv() {
+function PromoPageDiv(props: any) {
+    const { isSessionExpired } = props;
     const dummyPromoData = DummyPromoDataLong;
     const classes = useStyles();
     const [isLoading, setIsLoading] = useState(true);
@@ -156,6 +158,11 @@ function PromoPageDiv() {
                     </div>
                 </Grid>
             </Grid>
+            {isSessionExpired ?
+                <DialogSessionExpired />
+                :
+                <></>
+            }
         </div >
     );
 }

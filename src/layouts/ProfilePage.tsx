@@ -9,6 +9,7 @@ import { SignInButton } from '../components/SignInButton';
 import { useIsAuthenticated, useMsal } from "@azure/msal-react";
 import { SignOutButton } from '../components/SignOutButton';
 import { callMsGraph } from '../utils/MsGraphApiCall';
+import DialogSessionExpired from '../components/DialogSessionExpired';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -35,26 +36,34 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function ProfilePage() {
+export default function ProfilePage(props: any) {
+    const { isSessionExpired } = props;
     const classes = useStyles();
     const selector = useSelector((state: Rootstate) => state.auth);
     const isAuthenticated = useIsAuthenticated();
     console.log(selector.profile)
     return (
-        <Grid container justifyContent="center" alignItems="center" className={classes.root} >
-            <Grid item className={classes.wrapperPapper} xs={12} sm={12} md={3} component={Paper} elevation={6} square >
-                <Container className={classes.paper}>
-                    <h2>Profile Page !</h2>
-                    <Typography style={{ wordWrap: "break-word" }}><strong>Display Name: </strong> {selector.profile.displayName}</Typography>
-                    <Typography style={{ wordWrap: "break-word" }}><strong>First Name: </strong> {selector.profile.givenName}</Typography>
-                    <Typography style={{ wordWrap: "break-word" }}><strong>Last Name: </strong> {selector.profile.surname}</Typography>
-                    <Typography style={{ wordWrap: "break-word" }}><strong>Email: </strong> {selector.profile.mail}</Typography>
-                    <Typography style={{ wordWrap: "break-word" }}><strong>Id: </strong> {selector.profile.id}</Typography>
-                    <Box style={{ margin: '12px 0px' }}>
-                        {isAuthenticated ? <SignOutButton /> : <></>}
-                    </Box>
-                </Container>
+        <div>
+            <Grid container justifyContent="center" alignItems="center" className={classes.root} >
+                <Grid item className={classes.wrapperPapper} xs={12} sm={12} md={3} component={Paper} elevation={6} square >
+                    <Container className={classes.paper}>
+                        <h2>Profile Page !</h2>
+                        <Typography style={{ wordWrap: "break-word" }}><strong>Display Name: </strong> {selector.profile.displayName}</Typography>
+                        <Typography style={{ wordWrap: "break-word" }}><strong>First Name: </strong> {selector.profile.givenName}</Typography>
+                        <Typography style={{ wordWrap: "break-word" }}><strong>Last Name: </strong> {selector.profile.surname}</Typography>
+                        <Typography style={{ wordWrap: "break-word" }}><strong>Email: </strong> {selector.profile.mail}</Typography>
+                        <Typography style={{ wordWrap: "break-word" }}><strong>Id: </strong> {selector.profile.id}</Typography>
+                        <Box style={{ margin: '12px 0px' }}>
+                            {isAuthenticated ? <SignOutButton /> : <></>}
+                        </Box>
+                    </Container>
+                </Grid>
             </Grid>
-        </Grid>
+            {isSessionExpired ?
+                <DialogSessionExpired />
+                :
+                <></>
+            }
+        </div>
     );
 }

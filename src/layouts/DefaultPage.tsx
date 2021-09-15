@@ -3,10 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { loginUser, logoutUser } from '../redux/actions/auth';
 import { Rootstate } from '../redux/reducers';
-import { Grid, Paper, TextField, Button, Box } from '@material-ui/core';
+import { Grid, Paper, TextField, Button, Box, Dialog } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { SignOutButton } from '../components/SignOutButton';
 import { useIsAuthenticated } from '@azure/msal-react';
+import DialogSessionExpired from '../components/DialogSessionExpired';
 
 
 
@@ -38,7 +39,8 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function DefaultPage() {
+export default function DefaultPage(props: any) {
+    const { isSessionExpired } = props;
     const classes = useStyles();
     const isAuthenticated = useIsAuthenticated();
     const history = useHistory();
@@ -48,21 +50,28 @@ export default function DefaultPage() {
     }
 
     return (
-        <Grid container justifyContent="center" alignItems="center" className={classes.root} >
-            <Grid item className={classes.wrapperPapper} xs={12} sm={12} md={3} component={Paper} elevation={6} square >
-                <div className={classes.paper}>
-                    <h2>Default Page</h2>
-                    <Box style={{ margin: '12px 0px', width: '100%' }}>
-                        <Button variant="outlined" color="primary" style={{ width: '100%' }} onClick={() => { changePage("/profile") }}>Profile Page</Button>
-                    </Box>
-                    <Box style={{ margin: '12px 0px', width: '100%' }}>
-                        <Button variant="outlined" color="primary" style={{ width: '100%' }} onClick={() => { changePage("/promo") }}>Promo Page</Button>
-                    </Box>
-                    <Box style={{ margin: '12px 0px', width: '100%' }}>
-                        {isAuthenticated ? <SignOutButton /> : <></>}
-                    </Box>
-                </div>
+        <div>
+            <Grid container justifyContent="center" alignItems="center" className={classes.root} >
+                <Grid item className={classes.wrapperPapper} xs={12} sm={12} md={3} component={Paper} elevation={6} square >
+                    <div className={classes.paper}>
+                        <h2>Home Page</h2>
+                        <Box style={{ margin: '12px 0px', width: '100%' }}>
+                            <Button variant="outlined" color="primary" style={{ width: '100%' }} onClick={() => { changePage("/profile") }}>Profile Page</Button>
+                        </Box>
+                        <Box style={{ margin: '12px 0px', width: '100%' }}>
+                            <Button variant="outlined" color="primary" style={{ width: '100%' }} onClick={() => { changePage("/promo") }}>Promo Page</Button>
+                        </Box>
+                        <Box style={{ margin: '12px 0px', width: '100%' }}>
+                            {isAuthenticated ? <SignOutButton /> : <></>}
+                        </Box>
+                    </div>
+                </Grid>
             </Grid>
-        </Grid>
+            {isSessionExpired ?
+                <DialogSessionExpired />
+                :
+                <></>
+            }
+        </div>
     );
 }

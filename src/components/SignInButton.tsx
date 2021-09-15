@@ -29,7 +29,7 @@ export const SignInButton = () => {
     const { instance } = useMsal();
 
     return (
-        <Button color="primary" variant="outlined" style={{ width: '100%' }} onClick={() => handleLogin(instance, {})}>Sign in using Redirect</Button>
+        <Button color="primary" variant="outlined" style={{ width: '100%' }} onClick={() => handleLogin(instance, {})}>Sign in</Button>
     );
 }
 

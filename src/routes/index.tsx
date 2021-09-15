@@ -101,20 +101,21 @@ function LoggedOutRoute(props: any) {
 }
 
 
-export default function Pages() {
+export default function Pages(props: any) {
+    const { isSessionExpired } = props;
     return (
         <Switch>
             <LoggedOutRoute path="/login">
-                <LoginAzurePage />
+                <LoginAzurePage isSessionExpired={isSessionExpired} />
             </LoggedOutRoute>
             <LoggedInRoute path="/promo">
-                <PromoPageDiv />
+                <PromoPageDiv isSessionExpired={isSessionExpired} />
             </LoggedInRoute>
             <LoggedInRoute path="/profile">
-                <ProfilePage />
+                <ProfilePage isSessionExpired={isSessionExpired} />
             </LoggedInRoute>
             <LoggedInRoute path="/">
-                <DefaultPage />
+                <DefaultPage isSessionExpired={isSessionExpired} />
             </LoggedInRoute>
         </Switch>
     );

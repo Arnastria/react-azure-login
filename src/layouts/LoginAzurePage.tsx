@@ -9,6 +9,7 @@ import { SignInButton, SignInButtonHint, SignInButtonNavigate } from '../compone
 import { useIsAuthenticated, useMsal } from "@azure/msal-react";
 import { SignOutButton } from '../components/SignOutButton';
 import { callMsGraph } from '../utils/MsGraphApiCall';
+import DialogSessionExpired from '../components/DialogSessionExpired';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -37,7 +38,8 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function LoginAzurePage() {
+export default function LoginAzurePage(props: any) {
+    const { isSessionExpired } = props;
     const classes = useStyles();
     const isAuthenticated = useIsAuthenticated();
     const instance = useMsal();
@@ -45,7 +47,7 @@ export default function LoginAzurePage() {
     const useQuery = () => {
         return new URLSearchParams(useLocation().search);
     }
-
+    console.log(isSessionExpired)
 
     useEffect(() => {
         if (isAuthenticated) {
@@ -63,34 +65,41 @@ export default function LoginAzurePage() {
 
 
     return (
-        <Grid container justifyContent="center" alignItems="center" className={classes.root} >
-            <Grid item className={classes.wrapperPapper} xs={12} sm={12} md={3} component={Paper} elevation={6} square >
-                <div className={classes.paper}>
-                    <h2>Welcome !</h2>
-                    <Box style={{ margin: '12px 0px', width: '100%' }}>
-                        {isAuthenticated ?
-                            <Grid container justifyContent="center" alignItems="center">
-                                <Grid item>
-                                    <CircularProgress />
+        <div>
+            <Grid container justifyContent="center" alignItems="center" className={classes.root} >
+                <Grid item className={classes.wrapperPapper} xs={12} sm={12} md={3} component={Paper} elevation={6} square >
+                    <div className={classes.paper}>
+                        <h2>Welcome !</h2>
+                        <Box style={{ margin: '12px 0px', width: '100%' }}>
+                            {isAuthenticated ?
+                                <Grid container justifyContent="center" alignItems="center">
+                                    <Grid item>
+                                        <CircularProgress />
+                                    </Grid>
                                 </Grid>
-                            </Grid>
 
-                            :
-                            <Grid container direction="column" justifyContent="center" spacing={2}>
-                                <Grid item>
-                                    <SignInButton />
+                                :
+                                <Grid container direction="column" justifyContent="center" spacing={2}>
+                                    <Grid item>
+                                        <SignInButton />
+                                    </Grid>
+                                    <Grid item>
+                                        <SignInButtonHint />
+                                    </Grid>
+                                    <Grid item>
+                                        <SignInButtonNavigate />
+                                    </Grid>
                                 </Grid>
-                                <Grid item>
-                                    <SignInButtonHint />
-                                </Grid>
-                                <Grid item>
-                                    <SignInButtonNavigate />
-                                </Grid>
-                            </Grid>
-                        }
-                    </Box>
-                </div>
+                            }
+                        </Box>
+                    </div>
+                </Grid>
             </Grid>
-        </Grid>
+            {isSessionExpired ?
+                <DialogSessionExpired />
+                :
+                <></>
+            }
+        </div>
     );
 }
