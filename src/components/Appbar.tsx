@@ -2,9 +2,9 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import SearchIcon from '@material-ui/icons/Search';
+import { Search } from '@material-ui/icons';
 import { Button, Input, InputBase } from '@material-ui/core';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Rootstate } from '../redux/reducers';
 import { logoutUser } from '../redux/actions/auth';
@@ -68,18 +68,36 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function PoininAppBar(props: any) {
-    const { searchFunction } = props;
+    const { searchFunction, searchFunctionTimeout } = props;
     const [searchValue, setSearchValue] = useState<String>("");
     const dispatch = useDispatch();
     const selector = useSelector((state: Rootstate) => state.auth);
 
     const classes = useStyles();
-    console.log(selector)
     const logout = () => {
         logoutUser(dispatch);
         sessionStorage.clear();
         // window.location.reload();
     }
+
+    useEffect(() => {
+        if (searchValue == '') {
+            const timeOutSearch = setTimeout(() => {
+                console.log('clearing query..')
+                searchFunctionTimeout(searchValue, true);
+            }, 2000);
+            return () => clearTimeout(timeOutSearch);
+        }
+        if (searchValue.length > 3) {
+            const timeOutSearch = setTimeout(() => {
+                console.log('search..' + searchValue)
+                searchFunctionTimeout(searchValue, false);
+            }, 3000);
+            return () => clearTimeout(timeOutSearch);
+        }
+    }, [searchValue])
+
+
     return (
         <div className={classes.grow}>
             <AppBar elevation={0} position="static" className={classes.Appbar}>
@@ -87,7 +105,7 @@ export default function PoininAppBar(props: any) {
                     <img style={{ maxWidth: 100 }} src="https://www.poinin.com/_next/image?url=%2Fassets%2Ficon%2Fpoinin_icon.png&w=3840&q=75" />
                     <div className={classes.search}>
                         <div className={classes.searchIcon}>
-                            <SearchIcon />
+                            <Search />
                         </div>
                         <InputBase
                             placeholder="Search…"

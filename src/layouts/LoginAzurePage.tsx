@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router';
 import { loginUser, logoutUser, setRedirectUrl } from '../redux/actions/auth';
 import { Rootstate } from '../redux/reducers';
-import { Grid, Paper, TextField, Button, Box, CircularProgress } from '@material-ui/core';
+import { Grid, Paper, TextField, Button, Box, CircularProgress, Link } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { SignInButton, SignInButtonHint, SignInButtonNavigate } from '../components/SignInButton';
+import { handleLogin, SignInButton, SignInButtonFix, SignInButtonHint, SignInButtonNavigate, SignInSecondApp } from '../components/SignInButton';
 import { useIsAuthenticated, useMsal } from "@azure/msal-react";
 import { SignOutButton } from '../components/SignOutButton';
 import { callMsGraph } from '../utils/MsGraphApiCall';
@@ -19,13 +19,16 @@ const useStyles = makeStyles((theme) => ({
     },
     wrapperPapper: {
         marginRight: '10%',
-        marginLeft: '10%'
+        marginLeft: '10%',
+        maxWidth: '300px',
+        borderRadius: '15px'
     },
     paper: {
         margin: 12,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+
     },
     buttonLogin: {
         margin: 12,
@@ -42,18 +45,25 @@ export default function LoginAzurePage(props: any) {
     const { isSessionExpired } = props;
     const classes = useStyles();
     const isAuthenticated = useIsAuthenticated();
-    const instance = useMsal();
+    const { instance } = useMsal();
     const dispatch = useDispatch();
     const useQuery = () => {
         return new URLSearchParams(useLocation().search);
     }
-    console.log(isSessionExpired)
+    // const loginHintQuery = useQuery().get('loginHint');
+
+    if (window.localStorage.getItem('login_hint')) {
+        const login_hint = window.localStorage.getItem('login_hint')
+        window.localStorage.removeItem('login_hint');
+        handleLogin(instance, { loginHint: login_hint });
+    }
 
     useEffect(() => {
         if (isAuthenticated) {
             const payload = callMsGraph();
             payload.then((value) => {
                 loginUser(value.token, value.dataMSGraph, dispatch);
+
             }).catch((error) => {
                 logoutUser(dispatch)
                 console.log(error)
@@ -77,17 +87,10 @@ export default function LoginAzurePage(props: any) {
                                         <CircularProgress />
                                     </Grid>
                                 </Grid>
-
                                 :
-                                <Grid container direction="column" justifyContent="center" spacing={2}>
+                                <Grid container direction="column" alignItems="center" justifyContent="center" spacing={2}>
                                     <Grid item>
-                                        <SignInButton />
-                                    </Grid>
-                                    <Grid item>
-                                        <SignInButtonHint />
-                                    </Grid>
-                                    <Grid item>
-                                        <SignInButtonNavigate />
+                                        <SignInButtonFix />
                                     </Grid>
                                 </Grid>
                             }

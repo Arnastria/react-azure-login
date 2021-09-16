@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter, Redirect, Route, Switch, useHistory } from "react-router-dom";
 import DefaultPage from "../layouts/DefaultPage";
 import LoginAzurePage from "../layouts/LoginAzurePage";
+import LoginPage from "../layouts/LoginPage";
+import LoginRedirectPage from "../layouts/LoginRedirectPage";
 import ProfilePage from "../layouts/ProfilePage";
 import { PromoPageDiv } from "../layouts/PromoPageDiv";
 import { resetRedirectUrl } from "../redux/actions/auth";
@@ -54,7 +56,7 @@ function LoggedInRoute(props: any) {
     console.log("Masuk ke logged in")
     return (
         <>
-            <Route render={() => (
+            <Route path={path} render={() => (
                 <>
                     {children}
                 </>
@@ -90,7 +92,7 @@ function LoggedOutRoute(props: any) {
     console.log("Masuk ke logged out")
     return (
         <>
-            <Route render={() => (
+            <Route path={path} render={() => (
                 <>
                     {children}
                 </>
@@ -107,6 +109,9 @@ export default function Pages(props: any) {
         <Switch>
             <LoggedOutRoute path="/login">
                 <LoginAzurePage isSessionExpired={isSessionExpired} />
+            </LoggedOutRoute>
+            <LoggedOutRoute path="/loginRedirect">
+                <LoginRedirectPage isSessionExpired={isSessionExpired} />
             </LoggedOutRoute>
             <LoggedInRoute path="/promo">
                 <PromoPageDiv isSessionExpired={isSessionExpired} />

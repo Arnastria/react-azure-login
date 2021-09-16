@@ -6,8 +6,9 @@ import { Rootstate } from '../redux/reducers';
 import { Grid, Paper, TextField, Button, Box, Dialog } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { SignOutButton } from '../components/SignOutButton';
-import { useIsAuthenticated } from '@azure/msal-react';
+import { useIsAuthenticated, useMsal } from '@azure/msal-react';
 import DialogSessionExpired from '../components/DialogSessionExpired';
+import { SignInSecondApp } from '../components/SignInButton';
 
 
 
@@ -21,7 +22,9 @@ const useStyles = makeStyles((theme) => ({
     },
     wrapperPapper: {
         marginRight: '10%',
-        marginLeft: '10%'
+        marginLeft: '10%',
+        maxWidth: '300px',
+        borderRadius: '15px'
     },
     paper: {
         margin: 12,
@@ -43,6 +46,7 @@ export default function DefaultPage(props: any) {
     const { isSessionExpired } = props;
     const classes = useStyles();
     const isAuthenticated = useIsAuthenticated();
+    const instance = useMsal();
     const history = useHistory();
 
     const changePage = (route: string) => {
@@ -63,6 +67,9 @@ export default function DefaultPage(props: any) {
                         </Box>
                         <Box style={{ margin: '12px 0px', width: '100%' }}>
                             {isAuthenticated ? <SignOutButton /> : <></>}
+                        </Box>
+                        <Box style={{ margin: '12px 0px', width: '100%' }}>
+                            {isAuthenticated ? <SignInSecondApp /> : <></>}
                         </Box>
                     </div>
                 </Grid>

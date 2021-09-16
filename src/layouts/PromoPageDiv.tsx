@@ -87,10 +87,31 @@ function PromoPageDiv(props: any) {
         }
     }
 
+    const searchFunctionTimeout = (query: String, isClear: boolean) => {
+        if (isClear) {
+            setIsLoading(true);
+            setTimeout(() => {
+                setHasMore(true);
+                const tmpArr = dummyPromoData.slice(0, 10);
+                setPromoItem(tmpArr);
+                setIsLoading(false);
+            }, 1000);
+        } else {
+            setIsLoading(true);
+            setTimeout(() => {
+                const tmpArr = dummyPromoData.slice(0, 6);
+                setPromoItem(tmpArr);
+                setHasMore(false);
+                setIsLoading(false);
+            }, 1000);
+        }
+
+    }
+
     return (
         <div >
             <div className={classes.borderAppBar}>
-                <PoininAppBar searchFunction={searchFunction} />
+                <PoininAppBar searchFunction={searchFunction} searchFunctionTimeout={searchFunctionTimeout} />
             </div>
             <Grid container justifyContent='center' spacing={2} >
                 <Grid item>
