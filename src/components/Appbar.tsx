@@ -1,14 +1,12 @@
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import { Search } from '@material-ui/icons';
-import { Button, Input, InputBase } from '@material-ui/core';
+import { Button, InputBase } from '@material-ui/core';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Rootstate } from '../redux/reducers';
 import { logoutUser } from '../redux/actions/auth';
-import { Redirect } from 'react-router';
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -81,7 +79,7 @@ export default function PoininAppBar(props: any) {
     }
 
     useEffect(() => {
-        if (searchValue == '') {
+        if (searchValue === '') {
             const timeOutSearch = setTimeout(() => {
                 console.log('clearing query..')
                 searchFunctionTimeout(searchValue, true);
@@ -95,14 +93,14 @@ export default function PoininAppBar(props: any) {
             }, 3000);
             return () => clearTimeout(timeOutSearch);
         }
-    }, [searchValue])
+    }, [searchValue]) // eslint-disable-line react-hooks/exhaustive-deps
 
 
     return (
         <div className={classes.grow}>
             <AppBar elevation={0} position="static" className={classes.Appbar}>
                 <Toolbar>
-                    <img style={{ maxWidth: 100 }} src="https://www.poinin.com/_next/image?url=%2Fassets%2Ficon%2Fpoinin_icon.png&w=3840&q=75" />
+                    <img style={{ maxWidth: 100 }} src="https://www.poinin.com/_next/image?url=%2Fassets%2Ficon%2Fpoinin_icon.png&w=3840&q=75" alt="" />
                     <div className={classes.search}>
                         <div className={classes.searchIcon}>
                             <Search />

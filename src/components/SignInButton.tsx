@@ -1,7 +1,7 @@
 import React from "react";
 import { useMsal } from "@azure/msal-react";
 import { loginRequest } from "../authConfig";
-import { Button, ButtonBase, Icon, makeStyles, Paper, SvgIcon } from "@material-ui/core";
+import { Button, ButtonBase, makeStyles } from "@material-ui/core";
 import { setRedirectUrl } from "../redux/actions/auth";
 import { useDispatch, useSelector } from "react-redux";
 import MSLogo from "../data/MSSymbolLockup";
@@ -65,7 +65,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const SignInSecondApp = () => {
-    const dispatch = useDispatch();
     const selector = useSelector((state: Rootstate) => state.auth);
 
     return (

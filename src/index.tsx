@@ -5,8 +5,6 @@ import App from './App';
 import { Persistor, ReduxStore } from './redux';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import { BrowserRouter, Route } from "react-router-dom";
-import { MsalProvider } from '@azure/msal-react';
 import { AuthenticationResult, EventMessage, EventType, PublicClientApplication } from "@azure/msal-browser";
 import { msalConfig } from "./authConfig";
 

@@ -1,15 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { useHistory, useLocation } from 'react-router';
-import { loginUser, logoutUser, setRedirectUrl } from '../redux/actions/auth';
-import { Rootstate } from '../redux/reducers';
-import { Grid, Paper, TextField, Button, Box, CircularProgress, Link } from '@material-ui/core';
+import { loginUser, logoutUser } from '../redux/actions/auth';
+import { Grid, Paper, CircularProgress } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { handleLogin, SignInButton, SignInButtonFix, SignInButtonHint, SignInButtonNavigate, SignInSecondApp } from '../components/SignInButton';
-import { useIsAuthenticated, useMsal } from "@azure/msal-react";
-import { SignOutButton } from '../components/SignOutButton';
-import { callMsGraph } from '../utils/MsGraphApiCall';
+import { useIsAuthenticated } from "@azure/msal-react";
 import DialogSessionExpired from '../components/DialogSessionExpired';
+import { callMsGraph } from '../utils/MsGraphApiCall';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -75,7 +72,7 @@ export default function LoginRedirectPage(props: any) {
             })
         }
 
-    }, [isAuthenticated]);
+    }, [isAuthenticated]); // eslint-disable-line react-hooks/exhaustive-deps
 
 
     return (

@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/styles';
-import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Grid, Typography } from '@material-ui/core';
+import { Card, Grid } from '@material-ui/core';
 import { Skeleton } from '@material-ui/lab';
 import React from 'react';
 import { PromoData } from '../data/PromoData';
@@ -75,7 +75,7 @@ const Promocard = (props: any) => {
             <Grid item>
                 <div style={{ marginTop: "24px" }}>
                     <div style={{ height: 30 }}>
-                        <img style={{ width: 75 }} src={promoData.MerchantLogo} />
+                        <img style={{ width: 75 }} src={promoData.MerchantLogo} alt={promoData.MerchantLogo} />
                     </div>
                     <Card elevation={4} raised className={classes.cardProduct}>
                         <Grid container direction="column">
@@ -108,10 +108,10 @@ const Promocard = (props: any) => {
                                 </div>
                             </Grid>
                             <Grid item >
-                                <img className={classes.backgroundProduct} src={promoData.Background} />
-                                {promoData.CardLogo != '' ?
+                                <img className={classes.backgroundProduct} src={promoData.Background} alt={promoData.Background} />
+                                {promoData.CardLogo !== '' ?
                                     <div className={classes.overlayCard}>
-                                        <img className={classes.cardProductLogo} src={promoData.CardLogo} />
+                                        <img className={classes.cardProductLogo} src={promoData.CardLogo} alt={promoData.CardLogo} />
                                     </div>
                                     :
                                     <></>
@@ -265,7 +265,7 @@ const PromocardFixed = (props: any) => {
             <div>
                 <div className={classes.promoThumbnailBase}>
                     <div className={classes.promoThumbnailBrandWrapper}>
-                        <img className={classes.promoThumbnailBranding} src={promoData.MerchantLogo} />
+                        <img className={classes.promoThumbnailBranding} src={promoData.MerchantLogo} alt={promoData.MerchantLogo} />
                     </div>
                     <a style={{ textDecoration: 'none' }} href="/">
                         <div className={classes.promoThumbnailCard}>
@@ -279,11 +279,11 @@ const PromocardFixed = (props: any) => {
 
 
                             <div className={classes.promoThumbnailImgArea}>
-                                <img className={classes.promoThumbnailImage} src={promoData.Background} />
+                                <img className={classes.promoThumbnailImage} src={promoData.Background} alt={promoData.Background} />
                                 {promoData.CardLogo ?
                                     <div className={classes.promoThumbnailShowCardWrapper}>
                                         <div className={classes.promoThumbnailShowcard}>
-                                            <img className={classes.promoThumbnailShowcardImg} src={promoData.CardLogo} />
+                                            <img className={classes.promoThumbnailShowcardImg} src={promoData.CardLogo} alt={promoData.CardLogo} />
                                         </div>
                                     </div>
                                     :
@@ -296,7 +296,7 @@ const PromocardFixed = (props: any) => {
 
                 <div className={classes.promoThumbnailDate}>
                     <div>
-                        <img className={classes.promoThumbnailDateImg} src={'https://www.poinin.com/assets/icon/hours_glass.png'} />
+                        <img className={classes.promoThumbnailDateImg} src={'https://www.poinin.com/assets/icon/hours_glass.png'} alt='' />
                     </div>
                     <div className={classes.promoThumbnailDateText}>{promoData.Day}</div>
                 </div>

@@ -1,9 +1,7 @@
-import { useIsAuthenticated } from "@azure/msal-react";
 import { useDispatch, useSelector } from "react-redux";
-import { BrowserRouter, Redirect, Route, Switch, useHistory } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import DefaultPage from "../layouts/DefaultPage";
 import LoginAzurePage from "../layouts/LoginAzurePage";
-import LoginPage from "../layouts/LoginPage";
 import LoginRedirectPage from "../layouts/LoginRedirectPage";
 import ProfilePage from "../layouts/ProfilePage";
 import { PromoPageDiv } from "../layouts/PromoPageDiv";
@@ -68,8 +66,6 @@ function LoggedInRoute(props: any) {
 
 function LoggedOutRoute(props: any) {
     const { children, path } = props;
-    const isAuthenticated = useIsAuthenticated();
-    const history = useHistory();
     const selectorAuth = useSelector((state: Rootstate) => state.auth);
     const selectorRedirect = useSelector((state: Rootstate) => state.redirectUrl);
     console.log(selectorRedirect.url)

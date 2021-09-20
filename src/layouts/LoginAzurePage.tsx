@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useLocation } from 'react-router';
-import { loginUser, logoutUser, setRedirectUrl } from '../redux/actions/auth';
-import { Rootstate } from '../redux/reducers';
-import { Grid, Paper, TextField, Button, Box, CircularProgress, Link } from '@material-ui/core';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { loginUser, logoutUser } from '../redux/actions/auth';
+import { Grid, Paper, Box, CircularProgress } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { handleLogin, SignInButton, SignInButtonFix, SignInButtonHint, SignInButtonNavigate, SignInSecondApp } from '../components/SignInButton';
+import { handleLogin, SignInButtonFix } from '../components/SignInButton';
 import { useIsAuthenticated, useMsal } from "@azure/msal-react";
-import { SignOutButton } from '../components/SignOutButton';
 import { callMsGraph } from '../utils/MsGraphApiCall';
 import DialogSessionExpired from '../components/DialogSessionExpired';
 
@@ -52,10 +49,10 @@ export default function LoginAzurePage(props: any) {
     const isAuthenticated = useIsAuthenticated();
     const { instance } = useMsal();
     const dispatch = useDispatch();
-    const useQuery = () => {
-        return new URLSearchParams(useLocation().search);
-    }
-    // const loginHintQuery = useQuery().get('loginHint');
+    // const useQuery = () => {
+    //     return new URLSearchParams(useLocation().search);
+    // }
+    // // const loginHintQuery = useQuery().get('loginHint');
 
     if (window.localStorage.getItem('login_hint')) {
         const login_hint = window.localStorage.getItem('login_hint')
@@ -76,7 +73,7 @@ export default function LoginAzurePage(props: any) {
             })
         }
 
-    }, [isAuthenticated]);
+    }, [isAuthenticated]); // eslint-disable-line react-hooks/exhaustive-deps
 
 
     return (

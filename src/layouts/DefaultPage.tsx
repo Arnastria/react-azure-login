@@ -1,12 +1,7 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
-import { loginUser, logoutUser } from '../redux/actions/auth';
-import { Rootstate } from '../redux/reducers';
-import { Grid, Paper, TextField, Button, Box, Dialog } from '@material-ui/core';
+import { Grid, Paper, Button, Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { SignOutButton } from '../components/SignOutButton';
-import { useIsAuthenticated, useMsal } from '@azure/msal-react';
+import { useIsAuthenticated } from '@azure/msal-react';
 import DialogSessionExpired from '../components/DialogSessionExpired';
 import { SignInSecondApp } from '../components/SignInButton';
 import PoininAppBar from '../components/Appbar';
@@ -55,7 +50,6 @@ export default function DefaultPage(props: any) {
     const { isSessionExpired } = props;
     const classes = useStyles();
     const isAuthenticated = useIsAuthenticated();
-    const instance = useMsal();
     const history = useHistory();
 
     const changePage = (route: string) => {

@@ -1,14 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
-import { loginUser, logoutUser } from '../redux/actions/auth';
 import { Rootstate } from '../redux/reducers';
-import { Grid, Paper, TextField, Button, Typography, Container, Box } from '@material-ui/core';
+import { Grid, Paper, Button, Typography, Container, Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { SignInButton } from '../components/SignInButton';
-import { useIsAuthenticated, useMsal } from "@azure/msal-react";
-import { SignOutButton } from '../components/SignOutButton';
-import { callMsGraph } from '../utils/MsGraphApiCall';
+import { useIsAuthenticated } from "@azure/msal-react";
 import DialogSessionExpired from '../components/DialogSessionExpired';
 import PoininAppBar from '../components/Appbar';
 

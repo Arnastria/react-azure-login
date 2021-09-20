@@ -3,7 +3,7 @@ import { Grid, } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import PoininAppBar from '../components/Appbar';
-import { Promocard, PromocardFixed, PromocardLoading } from '../components/Promocard';
+import { PromocardFixed, PromocardLoading } from '../components/Promocard';
 import { DummyPromoDataLong } from '../data/DummyList';
 import { PromoData } from '../data/PromoData';
 import DialogSessionExpired from '../components/DialogSessionExpired';
@@ -45,7 +45,7 @@ function PromoPageDiv(props: any) {
         setTimeout(() => {
             setIsLoading(false);
         }, 2000);
-    }, [])
+    }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
     const fetchData = (start: any) => {
         console.log("fetchData..")

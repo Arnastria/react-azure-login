@@ -15,9 +15,6 @@ export default function DialogSessionExpired() {
     const { instance } = useMsal();
     const [open, setOpen] = useState(true);
 
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
 
     const handleClose = () => {
         const loginRequestConfig = {
@@ -30,10 +27,6 @@ export default function DialogSessionExpired() {
         setOpen(false);
     };
     const handleClose2 = () => {
-        const loginRequestConfig = {
-            ...loginRequest,
-            prompt: 'select_account'
-        }
         console.log("close dialog called")
         logoutUser(dispatch);
         setOpen(false);
