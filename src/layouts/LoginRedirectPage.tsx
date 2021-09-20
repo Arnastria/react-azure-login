@@ -15,7 +15,12 @@ import DialogSessionExpired from '../components/DialogSessionExpired';
 const useStyles = makeStyles((theme) => ({
     root: {
         height: '100vh',
-        background: 'linear-gradient(90deg, rgba(255,161,147,1) 0%, rgba(255,210,170,1) 100%)',
+        backgroundImage: 'url(https://www.poinin.com/assets/img/prize_for_you.png)',
+        backgroundRepeat: 'no-repeat',
+        backgroundColor:
+            theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
+
+        backgroundPosition: 'left bottom',
     },
     wrapperPapper: {
         marginRight: '10%',

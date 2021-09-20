@@ -10,12 +10,21 @@ import { useIsAuthenticated, useMsal } from "@azure/msal-react";
 import { SignOutButton } from '../components/SignOutButton';
 import { callMsGraph } from '../utils/MsGraphApiCall';
 import DialogSessionExpired from '../components/DialogSessionExpired';
+import PoininAppBar from '../components/Appbar';
 
 
 const useStyles = makeStyles((theme) => ({
     root: {
         height: '100vh',
-        background: 'linear-gradient(90deg, rgba(255,161,147,1) 0%, rgba(255,210,170,1) 100%)',
+        backgroundImage: 'url(https://www.poinin.com/assets/img/prize_for_you.png)',
+        backgroundRepeat: 'no-repeat',
+        backgroundColor:
+            theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
+
+        backgroundPosition: 'left bottom',
+    },
+    borderAppBar: {
+        border: '1px solid #eeecea'
     },
     wrapperPapper: {
         marginRight: '10%',
@@ -43,9 +52,16 @@ export default function ProfilePage(props: any) {
     const classes = useStyles();
     const selector = useSelector((state: Rootstate) => state.auth);
     const isAuthenticated = useIsAuthenticated();
+    const history = useHistory();
+    const changePage = (route: string) => {
+        history.push(route);
+    }
     console.log(selector.profile)
     return (
         <div>
+            <div className={classes.borderAppBar}>
+                <PoininAppBar searchFunction={() => { }} searchFunctionTimeout={() => { }} />
+            </div>
             <Grid container justifyContent="center" alignItems="center" className={classes.root} >
                 <Grid item className={classes.wrapperPapper} xs={12} sm={12} md={3} component={Paper} elevation={6} square >
                     <Container className={classes.paper}>
@@ -56,7 +72,9 @@ export default function ProfilePage(props: any) {
                         <Typography style={{ wordWrap: "break-word" }}><strong>Email: </strong> {selector.profile.mail}</Typography>
                         <Typography style={{ wordWrap: "break-word" }}><strong>Id: </strong> {selector.profile.id}</Typography>
                         <Box style={{ margin: '12px 0px' }}>
-                            {isAuthenticated ? <SignOutButton /> : <></>}
+                            {isAuthenticated ?
+                                <Button variant="outlined" color="secondary" style={{ width: '100%' }} onClick={() => { changePage("/") }}>Back to home</Button>
+                                : <></>}
                         </Box>
                     </Container>
                 </Grid>

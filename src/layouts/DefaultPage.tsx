@@ -9,13 +9,22 @@ import { SignOutButton } from '../components/SignOutButton';
 import { useIsAuthenticated, useMsal } from '@azure/msal-react';
 import DialogSessionExpired from '../components/DialogSessionExpired';
 import { SignInSecondApp } from '../components/SignInButton';
+import PoininAppBar from '../components/Appbar';
 
 
 
 const useStyles = makeStyles((theme) => ({
     root: {
         height: '100vh',
-        background: 'linear-gradient(90deg, rgba(255,161,147,1) 0%, rgba(255,210,170,1) 100%)',
+        backgroundImage: 'url(https://www.poinin.com/assets/img/prize_for_you.png)',
+        backgroundRepeat: 'no-repeat',
+        backgroundColor:
+            theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
+
+        backgroundPosition: 'left bottom',
+    },
+    borderAppBar: {
+        border: '1px solid #eeecea'
     },
     logo: {
         maxWidth: 150
@@ -55,6 +64,9 @@ export default function DefaultPage(props: any) {
 
     return (
         <div>
+            <div className={classes.borderAppBar}>
+                <PoininAppBar searchFunction={() => { }} searchFunctionTimeout={() => { }} />
+            </div>
             <Grid container justifyContent="center" alignItems="center" className={classes.root} >
                 <Grid item className={classes.wrapperPapper} xs={12} sm={12} md={3} component={Paper} elevation={6} square >
                     <div className={classes.paper}>
@@ -62,11 +74,8 @@ export default function DefaultPage(props: any) {
                         <Box style={{ margin: '12px 0px', width: '100%' }}>
                             <Button variant="outlined" color="primary" style={{ width: '100%' }} onClick={() => { changePage("/profile") }}>Profile Page</Button>
                         </Box>
-                        <Box style={{ margin: '12px 0px', width: '100%' }}>
+                        <Box style={{ margin: '6px 0px', width: '100%' }}>
                             <Button variant="outlined" color="primary" style={{ width: '100%' }} onClick={() => { changePage("/promo") }}>Promo Page</Button>
-                        </Box>
-                        <Box style={{ margin: '12px 0px', width: '100%' }}>
-                            {isAuthenticated ? <SignOutButton /> : <></>}
                         </Box>
                         <Box style={{ margin: '12px 0px', width: '100%' }}>
                             {isAuthenticated ? <SignInSecondApp /> : <></>}

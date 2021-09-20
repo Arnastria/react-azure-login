@@ -13,13 +13,13 @@ const useStyles = makeStyles({
         border: '1px solid #eeecea'
     },
     gridContainerLoaderPromoNoPadding: {
-        overflow: 'hidden', display: 'flex', flexWrap: 'wrap', justifyContent: 'center'
+        overflow: 'hidden', display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start'
     },
     gridContainerLoaderPromo: {
-        overflow: 'hidden', padding: '0% 25% 0% 25%', display: 'flex', flexWrap: 'wrap', justifyContent: 'center', width: '50%'
+        overflow: 'hidden', padding: '0% 25% 0% 25%', display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start', width: '50%'
     },
     gridEndMessage: {
-        overflow: 'hidden', padding: '0% 25% 0% 25%', display: 'flex', flexWrap: 'wrap', justifyContent: 'center'
+        overflow: 'hidden', padding: '0% 25% 0% 25%', display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start'
     }
 });
 

@@ -69,7 +69,7 @@ export const SignInSecondApp = () => {
     const selector = useSelector((state: Rootstate) => state.auth);
 
     return (
-        <Button color="primary" variant="contained" style={{ width: '100%' }} onClick={() => { window.location.assign('http://localhost:3030/loginRedirect?loginHint=' + selector.mail) }}> Sign in to Second App </Button>
+        <Button color="primary" variant="contained" style={{ width: '100%' }} onClick={() => { window.open('http://localhost:3030/loginRedirect?loginHint=' + selector.profile.mail) }}> Sign in to Second App </Button>
     );
 }
 
