@@ -33,7 +33,7 @@ jobs:
           node-version: 14.x
       
       - name: Install NPM packages
-        run: npm ci
+        run: npm install
         
       - name: Build react project
         run: npm run build
